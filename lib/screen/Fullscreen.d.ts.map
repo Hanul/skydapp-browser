@@ -1,0 +1,1 @@
+{"version":3,"file":"Fullscreen.d.ts","sourceRoot":"","sources":["../../src/screen/Fullscreen.ts"],"names":[],"mappings":"AAEA,OAAO,MAAM,MAAM,UAAU,CAAC;AAE9B,MAAM,CAAC,OAAO,OAAO,UAAW,SAAQ,MAAM;IAS9B,OAAO,CAAC,OAAO,CAAC;IAPrB,KAAK,SAAK;IAEjB,OAAO,CAAC,WAAW,CAGjB;gBAEkB,OAAO,CAAC;;;;;;;;;iBAM3B;IAwBD,OAAO,CAAC,mBAAmB,CA6DzB;IAEK,MAAM,IAAI,IAAI;CAIxB"}
