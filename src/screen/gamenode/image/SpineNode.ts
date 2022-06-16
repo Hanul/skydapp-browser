@@ -14,10 +14,14 @@ export default class SpineNode extends GameNode {
             json: string;
             atlas: string;
             png: string;
+            animation?: string;
         },
     ) {
         super(x, y);
         this.load();
+        if (this.options.animation !== undefined) {
+            this.animation = this.options.animation;
+        }
     }
 
     private async load() {
@@ -42,6 +46,10 @@ export default class SpineNode extends GameNode {
             complete: () => this.fireEvent("animationend"),
         });
         this.pixiContainer.addChild(this.pixiSpine as any);
+
+        if (this.deleted !== true) {
+            this.fireEvent("load");
+        }
     }
 
     public set animation(animation: string | undefined) {

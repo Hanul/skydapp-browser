@@ -15,6 +15,9 @@ export default class ImageNode extends GameNode {
         pixiSprite.anchor.x = 0.5;
         pixiSprite.anchor.y = 0.5;
         this.pixiContainer.addChild(pixiSprite);
+        if (this.deleted !== true) {
+            this.fireEvent("load");
+        }
     }
 
     public set src(src: string) {

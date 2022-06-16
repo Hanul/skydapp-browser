@@ -1865,10 +1865,10 @@ signal-exit@^3.0.3:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
 
-skydapp-common@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/skydapp-common/-/skydapp-common-0.0.2.tgz#a0fd41d7e0529fbcf401c0a96fd88a33af00dea6"
-  integrity sha512-ktVeaTx6ZgsmcmttW3sDeZs4qz0ZB/x82QUNdEbFkzVD06WhYSow1PAlDrGaY+cxo8W4PGVZzW4mDKYKgk5qag==
+skydapp-common@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/skydapp-common/-/skydapp-common-0.0.3.tgz#168944623597d29ea4c8d9abe8b439a8b7361644"
+  integrity sha512-5cH+0eaw13Y7zltUIvro+0rO3d/N5g5zl6GvuU4FzSexzZjvQ1hVki12LB8lDo5BedKs4p82mlNIHvnBE4kf4Q==
 
 slash@^3.0.0:
   version "3.0.0"

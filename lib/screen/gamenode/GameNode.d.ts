@@ -48,6 +48,11 @@ export default class GameNode extends SkyNode {
     private speedY;
     private moveendHandler;
     moveTo(x: number, y: number, speed: number, moveendHandler?: () => void): void;
+    private toAlpha;
+    private fadingSpeed;
+    private fadeendHandler;
+    fadeIn(speed: number, fadeendHandler?: () => void): void;
+    fadeOut(speed: number, fadeendHandler?: () => void): void;
     r_x: number;
     r_y: number;
     r_scaleX: number;

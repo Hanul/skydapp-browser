@@ -116,6 +116,8 @@ export default class GameNode extends SkyNode {
             this._dom = dom;
             dom.style({
                 position: "fixed",
+                left: -9999999,
+                top: -9999999,
                 opacity: this.pixiContainer.worldAlpha,
             });
             dom.on("delete", () => this._dom = undefined);
@@ -142,6 +144,25 @@ export default class GameNode extends SkyNode {
         this.speedX = speed * dx / distance;
         this.speedY = speed * dy / distance;
         this.moveendHandler = moveendHandler;
+    }
+
+    private toAlpha: number | undefined;
+    private fadingSpeed = 0;
+    private fadeendHandler: (() => void) | undefined;
+
+    public fadeIn(speed: number, fadeendHandler?: () => void): void {
+        if (this.alpha === 1) {
+            this.alpha = 0;
+        }
+        this.toAlpha = 1;
+        this.fadingSpeed = speed;
+        this.fadeendHandler = fadeendHandler;
+    }
+
+    public fadeOut(speed: number, fadeendHandler?: () => void): void {
+        this.toAlpha = 0;
+        this.fadingSpeed = -speed;
+        this.fadeendHandler = fadeendHandler;
     }
 
     public r_x = 0;
@@ -197,46 +218,66 @@ export default class GameNode extends SkyNode {
             }
         }
 
-        this.r_x = x + this.x;
-        this.r_y = y + this.y;
-        if (this.screen?.camera.target === this) {
-            this.screen.camera.x = this.r_x;
-            this.screen.camera.y = this.r_y;
+        this.alpha += this.fadingSpeed * deltaTime;
+        if (this.toAlpha !== undefined) {
+            if (
+                (this.fadingSpeed > 0 && this.alpha > this.toAlpha) ||
+                (this.fadingSpeed < 0 && this.alpha < this.toAlpha)
+            ) {
+                this.alpha = this.toAlpha;
+                this.toAlpha = undefined;
+                this.fadingSpeed = 0;
+                if (this.fadeendHandler !== undefined) {
+                    this.fadeendHandler();
+                    this.fadeendHandler = undefined;
+                }
+            }
         }
 
-        this.r_scaleX = scaleX * this.scaleX;
-        this.r_scaleY = scaleY * this.scaleY;
-        this.r_angle = angle + this.angle;
-        this.r_alpha = alpha * this.alpha;
+        if (this.deleted !== true) {
 
-        for (const child of this.children) { child.step(deltaTime, this.r_x, this.r_y, this.r_scaleX, this.r_scaleY, this.r_angle, this.r_sin, this.r_cos, this.r_alpha); }
-        for (const delay of this.delays) { delay.step(deltaTime); }
+            this.r_x = x + this.x;
+            this.r_y = y + this.y;
+            if (this.screen?.camera.target === this) {
+                this.screen.camera.x = this.r_x;
+                this.screen.camera.y = this.r_y;
+            }
 
-        if (this.dom !== undefined && this.screen !== undefined) {
-            const dom_left = this.screen.left + (this.screen.width / 2 + this.r_x - this.centerX - this.screen.camera.x) * this.screen.ratio;
-            const dom_top = this.screen.top + (this.screen.height / 2 + this.r_y - this.centerY - this.screen.camera.y) * this.screen.ratio;
-            const dom_scaleX = this.screen.ratio * this.r_scaleX;
-            const dom_scaleY = this.screen.ratio * this.r_scaleY;
-            if (
-                dom_left !== this.dom_left ||
-                dom_top !== this.dom_top ||
-                dom_scaleX !== this.dom_scaleX ||
-                dom_scaleY !== this.dom_scaleY ||
-                this.r_angle !== this.dom_angle ||
-                this.r_alpha !== this.dom_alpha
-            ) {
-                const rect = this.dom.rect;
-                this.dom.style({
-                    left: dom_left - rect.width / 2,
-                    top: dom_top - rect.height / 2,
-                    transform: `scale(${dom_scaleX}, ${dom_scaleY})`,
-                });
-                this.dom_left = dom_left;
-                this.dom_top = dom_top;
-                this.dom_scaleX = dom_scaleX;
-                this.dom_scaleY = dom_scaleY;
-                this.dom_angle = this.r_angle;
-                this.dom_alpha = this.r_alpha;
+            this.r_scaleX = scaleX * this.scaleX;
+            this.r_scaleY = scaleY * this.scaleY;
+            this.r_angle = angle + this.angle;
+            this.r_alpha = alpha * this.alpha;
+
+            for (const child of this.children) { child.step(deltaTime, this.r_x, this.r_y, this.r_scaleX, this.r_scaleY, this.r_angle, this.r_sin, this.r_cos, this.r_alpha); }
+            for (const delay of this.delays) { delay.step(deltaTime); }
+
+            if (this.dom !== undefined && this.screen !== undefined) {
+                const dom_left = this.screen.left + (this.screen.width / 2 + this.r_x - this.centerX - this.screen.camera.x) * this.screen.ratio;
+                const dom_top = this.screen.top + (this.screen.height / 2 + this.r_y - this.centerY - this.screen.camera.y) * this.screen.ratio;
+                const dom_scaleX = this.screen.ratio * this.r_scaleX;
+                const dom_scaleY = this.screen.ratio * this.r_scaleY;
+                if (
+                    dom_left !== this.dom_left ||
+                    dom_top !== this.dom_top ||
+                    dom_scaleX !== this.dom_scaleX ||
+                    dom_scaleY !== this.dom_scaleY ||
+                    this.r_angle !== this.dom_angle ||
+                    this.r_alpha !== this.dom_alpha
+                ) {
+                    const rect = this.dom.rect;
+                    this.dom.style({
+                        left: dom_left - rect.width / 2,
+                        top: dom_top - rect.height / 2,
+                        transform: `scale(${dom_scaleX}, ${dom_scaleY})`,
+                        opacity: this.r_alpha,
+                    });
+                    this.dom_left = dom_left;
+                    this.dom_top = dom_top;
+                    this.dom_scaleX = dom_scaleX;
+                    this.dom_scaleY = dom_scaleY;
+                    this.dom_angle = this.r_angle;
+                    this.dom_alpha = this.r_alpha;
+                }
             }
         }
     }

@@ -8,6 +8,7 @@ export default class SpineNode extends GameNode {
         json: string;
         atlas: string;
         png: string;
+        animation?: string;
     });
     private load;
     set animation(animation: string | undefined);
