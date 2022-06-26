@@ -20,3 +20,4 @@ export { default as Delay } from "./screen/utils/Delay";
 export { default as BrowserInfo } from "./BrowserInfo";
 export { default as Store } from "./Store";
 export { default as msg } from "./msg";
+export { default as WebSocketClient } from "./WebSocketClient";
