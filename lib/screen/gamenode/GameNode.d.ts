@@ -53,6 +53,8 @@ export default class GameNode extends SkyNode {
     private fadeendHandler;
     fadeIn(speed: number, fadeendHandler?: () => void): void;
     fadeOut(speed: number, fadeendHandler?: () => void): void;
+    hide(): void;
+    show(): void;
     r_x: number;
     r_y: number;
     r_scaleX: number;
@@ -61,13 +63,14 @@ export default class GameNode extends SkyNode {
     r_sin: number;
     r_cos: number;
     r_alpha: number;
+    r_hidden: boolean;
     private dom_left;
     private dom_top;
     private dom_scaleX;
     private dom_scaleY;
     private dom_angle;
     private dom_alpha;
-    step(deltaTime: number, x: number, y: number, scaleX: number, scaleY: number, angle: number, sin: number, cos: number, alpha: number): void;
+    step(deltaTime: number, x: number, y: number, scaleX: number, scaleY: number, angle: number, sin: number, cos: number, alpha: number, hidden: boolean): void;
     updateDomPosition(conditional?: boolean): void;
     appendTo(node: GameNode, index?: number): this;
     delete(): void;

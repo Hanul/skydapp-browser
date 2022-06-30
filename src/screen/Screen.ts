@@ -72,9 +72,9 @@ export default class Screen extends DomNode<HTMLDivElement> {
     private step(deltaTime: number) {
 
         // root to center of screen
+        this.root.step(deltaTime, -this.root.x, -this.root.y, 1, 1, 0, 0, 1, 1, false);
         this.root.x = this.width / 2 - this.camera.x;
         this.root.y = this.height / 2 - this.camera.y;
-        this.root.step(deltaTime, -this.root.x, -this.root.y, 1, 1, 0, 0, 1, 1);
 
         this.renderer.render(this.root.pixiContainer);
     }

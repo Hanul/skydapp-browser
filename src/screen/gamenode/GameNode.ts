@@ -165,6 +165,14 @@ export default class GameNode extends SkyNode {
         this.fadeendHandler = fadeendHandler;
     }
 
+    public hide(): void {
+        this.pixiContainer.visible = false;
+    }
+
+    public show(): void {
+        this.pixiContainer.visible = true;
+    }
+
     public r_x = 0;
     public r_y = 0;
     public r_scaleX = 1;
@@ -173,6 +181,7 @@ export default class GameNode extends SkyNode {
     public r_sin = 0;
     public r_cos = 1;
     public r_alpha = 1;
+    public r_hidden = false;
 
     private dom_left = 0;
     private dom_top = 0;
@@ -183,7 +192,7 @@ export default class GameNode extends SkyNode {
 
     public step(
         deltaTime: number,
-        x: number, y: number, scaleX: number, scaleY: number, angle: number, sin: number, cos: number, alpha: number,
+        x: number, y: number, scaleX: number, scaleY: number, angle: number, sin: number, cos: number, alpha: number, hidden: boolean,
     ): void {
 
         this.x += this.speedX * deltaTime;
@@ -247,8 +256,9 @@ export default class GameNode extends SkyNode {
             this.r_scaleY = scaleY * this.scaleY;
             this.r_angle = angle + this.angle;
             this.r_alpha = alpha * this.alpha;
+            this.r_hidden = hidden === true ? true : this.pixiContainer.visible !== true;
 
-            for (const child of this.children) { child.step(deltaTime, this.r_x, this.r_y, this.r_scaleX, this.r_scaleY, this.r_angle, this.r_sin, this.r_cos, this.r_alpha); }
+            for (const child of this.children) { child.step(deltaTime, this.r_x, this.r_y, this.r_scaleX, this.r_scaleY, this.r_angle, this.r_sin, this.r_cos, this.r_alpha, this.r_hidden); }
             for (const delay of this.delays) { delay.step(deltaTime); }
 
             this.updateDomPosition(true);
