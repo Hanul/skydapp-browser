@@ -3,7 +3,6 @@ declare type Messages = {
 };
 declare const msg: {
     (keyOrMessages: string | Messages): string;
-    language: string;
     parseCSV(content: string): void;
     getMessages(key: string): Messages;
     getLangMessages(keyOrMessages: string | Messages): {

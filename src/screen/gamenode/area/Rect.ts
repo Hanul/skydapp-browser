@@ -1,22 +1,14 @@
 import CollisionChecker from "../../utils/CollisionChecker";
 import Area from "./Area";
 
-export default class Polygon extends Area {
+export default class Rect extends Area {
 
-    constructor(x: number, y: number, private points: { x: number, y: number }[]) {
+    constructor(x: number, y: number, private width: number, private height: number) {
         super(x, y);
     }
 
     public getPixiGraphics(color: number) {
         const graphics = super.getPixiGraphics(color);
-        if (this.points.length > 0) {
-            graphics.moveTo(this.points[0].x, this.points[0].y);
-            for (let i = 1; i < this.points.length; i += 1) {
-                const point = this.points[i];
-                graphics.lineTo(point.x, point.y);
-            }
-            graphics.lineTo(this.points[0].x, this.points[0].y);
-        }
         return graphics;
     }
 
@@ -25,10 +17,10 @@ export default class Polygon extends Area {
             return false;
         }
         //TODO: 잘못 구현됨
-        return CollisionChecker.checkPointInPolygon(
+        return CollisionChecker.checkPointInRect(
             x, y,
             this.parent.r_x, this.parent.r_y,
-            this.points,
+            this.width, this.height,
             this.parent.r_scaleX, this.parent.r_scaleY,
             this.parent.r_sin, this.parent.r_cos,
         );

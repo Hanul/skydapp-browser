@@ -68,6 +68,7 @@ export default class GameNode extends SkyNode {
     private dom_angle;
     private dom_alpha;
     step(deltaTime: number, x: number, y: number, scaleX: number, scaleY: number, angle: number, sin: number, cos: number, alpha: number): void;
+    updateDomPosition(conditional?: boolean): void;
     appendTo(node: GameNode, index?: number): this;
     delete(): void;
 }

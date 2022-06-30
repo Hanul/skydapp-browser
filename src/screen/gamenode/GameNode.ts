@@ -251,33 +251,38 @@ export default class GameNode extends SkyNode {
             for (const child of this.children) { child.step(deltaTime, this.r_x, this.r_y, this.r_scaleX, this.r_scaleY, this.r_angle, this.r_sin, this.r_cos, this.r_alpha); }
             for (const delay of this.delays) { delay.step(deltaTime); }
 
-            if (this.dom !== undefined && this.screen !== undefined) {
-                const dom_left = this.screen.left + (this.screen.width / 2 + this.r_x - this.centerX - this.screen.camera.x) * this.screen.ratio;
-                const dom_top = this.screen.top + (this.screen.height / 2 + this.r_y - this.centerY - this.screen.camera.y) * this.screen.ratio;
-                const dom_scaleX = this.screen.ratio * this.r_scaleX;
-                const dom_scaleY = this.screen.ratio * this.r_scaleY;
-                if (
-                    dom_left !== this.dom_left ||
-                    dom_top !== this.dom_top ||
-                    dom_scaleX !== this.dom_scaleX ||
-                    dom_scaleY !== this.dom_scaleY ||
-                    this.r_angle !== this.dom_angle ||
-                    this.r_alpha !== this.dom_alpha
-                ) {
-                    const rect = this.dom.rect;
-                    this.dom.style({
-                        left: dom_left - rect.width / 2,
-                        top: dom_top - rect.height / 2,
-                        transform: `scale(${dom_scaleX}, ${dom_scaleY})`,
-                        opacity: this.r_alpha,
-                    });
-                    this.dom_left = dom_left;
-                    this.dom_top = dom_top;
-                    this.dom_scaleX = dom_scaleX;
-                    this.dom_scaleY = dom_scaleY;
-                    this.dom_angle = this.r_angle;
-                    this.dom_alpha = this.r_alpha;
-                }
+            this.updateDomPosition(true);
+        }
+    }
+
+    public updateDomPosition(conditional?: boolean) {
+        if (this.dom !== undefined && this.screen !== undefined) {
+            const dom_left = this.screen.left + (this.screen.width / 2 + this.r_x - this.centerX - this.screen.camera.x) * this.screen.ratio;
+            const dom_top = this.screen.top + (this.screen.height / 2 + this.r_y - this.centerY - this.screen.camera.y) * this.screen.ratio;
+            const dom_scaleX = this.screen.ratio * this.r_scaleX;
+            const dom_scaleY = this.screen.ratio * this.r_scaleY;
+            if (
+                conditional !== true ||
+                dom_left !== this.dom_left ||
+                dom_top !== this.dom_top ||
+                dom_scaleX !== this.dom_scaleX ||
+                dom_scaleY !== this.dom_scaleY ||
+                this.r_angle !== this.dom_angle ||
+                this.r_alpha !== this.dom_alpha
+            ) {
+                const rect = this.dom.rect;
+                this.dom.style({
+                    left: dom_left - rect.width / 2,
+                    top: dom_top - rect.height / 2,
+                    transform: `scale(${dom_scaleX}, ${dom_scaleY})`,
+                    opacity: this.r_alpha,
+                });
+                this.dom_left = dom_left;
+                this.dom_top = dom_top;
+                this.dom_scaleX = dom_scaleX;
+                this.dom_scaleY = dom_scaleY;
+                this.dom_angle = this.r_angle;
+                this.dom_alpha = this.r_alpha;
             }
         }
     }

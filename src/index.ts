@@ -13,6 +13,7 @@ export { default as Fullscreen } from "./screen/Fullscreen";
 export { default as GameNode } from "./screen/gamenode/GameNode";
 export { default as FixedNode } from "./screen/gamenode/FixedNode";
 export { default as Polygon } from "./screen/gamenode/area/Polygon";
+export { default as Rect } from "./screen/gamenode/area/Rect";
 export { default as ImageNode } from "./screen/gamenode/image/ImageNode";
 export { default as SpineNode } from "./screen/gamenode/image/SpineNode";
 export { default as Delay } from "./screen/utils/Delay";

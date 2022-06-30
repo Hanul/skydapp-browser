@@ -1,4 +1,5 @@
 import * as Papaparse from "papaparse";
+import BrowserInfo from "./BrowserInfo";
 
 type Messages = { [language: string]: string };
 
@@ -11,17 +12,17 @@ const msg = (keyOrMessages: string | Messages) => {
         console.error(`${keyOrMessages} not exists.`);
     } else {
 
-        let str = messages[msg.language];
+        let str = messages[BrowserInfo.language];
         if (str === undefined) {
 
             let language: string = "";
             let locale: string = "";
 
-            if (msg.language.length === 2) {
-                language = msg.language.toLowerCase();
+            if (BrowserInfo.language.length === 2) {
+                language = BrowserInfo.language.toLowerCase();
             } else {
-                language = msg.language.substring(0, 2).toLowerCase();
-                locale = msg.language.substring(3).toLowerCase();
+                language = BrowserInfo.language.substring(0, 2).toLowerCase();
+                locale = BrowserInfo.language.substring(3).toLowerCase();
             }
 
             str = messages[language];
@@ -54,9 +55,6 @@ const msg = (keyOrMessages: string | Messages) => {
 
     return "";
 };
-
-// default language is english.
-msg.language = "en";
 
 msg.parseCSV = (content: string) => {
 
@@ -91,11 +89,11 @@ msg.getLangMessages = (keyOrMessages: string | Messages) => {
     let language: string = "";
     let locale: string = "";
 
-    if (msg.language.length === 2) {
-        language = msg.language.toLowerCase();
+    if (BrowserInfo.language.length === 2) {
+        language = BrowserInfo.language.toLowerCase();
     } else {
-        language = msg.language.substring(0, 2).toLowerCase();
-        locale = msg.language.substring(3).toLowerCase();
+        language = BrowserInfo.language.substring(0, 2).toLowerCase();
+        locale = BrowserInfo.language.substring(3).toLowerCase();
     }
 
     const messages = typeof keyOrMessages === "string" ? data[keyOrMessages] : keyOrMessages;
@@ -103,7 +101,7 @@ msg.getLangMessages = (keyOrMessages: string | Messages) => {
         console.error(`${keyOrMessages} not exists.`);
     } else {
 
-        let str = messages[msg.language];
+        let str = messages[BrowserInfo.language];
         if (str === undefined) {
 
             str = messages[language];

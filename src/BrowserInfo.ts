@@ -1,6 +1,5 @@
 import Bowser from "bowser";
 import { SkyRouter } from "skydapp-common";
-import msg from "./msg";
 import Store from "./Store";
 
 class BrowserInfo {
@@ -21,7 +20,6 @@ class BrowserInfo {
 
     public set language(language: string) {
         this.store.set("lang", language);
-        msg.language = language;
     }
 
     public changeLanguage(language: string) {
