@@ -10,14 +10,18 @@ export default class ImageNode extends GameNode {
     }
 
     private async changeImage(src: string) {
+
         const texture = await TextureLoader.load(src);
         const pixiSprite = PIXI.Sprite.from(texture);
         pixiSprite.anchor.x = 0.5;
         pixiSprite.anchor.y = 0.5;
         this.pixiContainer.addChild(pixiSprite);
-        if (this.deleted !== true) {
-            this.fireEvent("load");
-        }
+
+        setTimeout(() => {
+            if (this.deleted !== true) {
+                this.fireEvent("load");
+            }
+        });
     }
 
     public set src(src: string) {

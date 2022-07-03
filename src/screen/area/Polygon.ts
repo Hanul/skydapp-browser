@@ -1,4 +1,4 @@
-import CollisionChecker from "../../utils/CollisionChecker";
+import CollisionChecker from "../utils/CollisionChecker";
 import Area from "./Area";
 
 export default class Polygon extends Area {

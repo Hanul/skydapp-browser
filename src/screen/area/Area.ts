@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import GameNode from "../GameNode";
+import GameNode from "../gamenode/GameNode";
 
 export default abstract class Area {
 

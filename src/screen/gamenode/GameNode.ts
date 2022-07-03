@@ -3,7 +3,7 @@ import DomNode from "../../dom/DomNode";
 import SkyNode from "../../dom/SkyNode";
 import Screen from "../Screen";
 import Delay from "../utils/Delay";
-import Area from "./area/Area";
+import Area from "../area/Area";
 
 export default class GameNode extends SkyNode {
 

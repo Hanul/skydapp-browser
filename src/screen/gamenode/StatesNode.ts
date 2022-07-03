@@ -33,6 +33,10 @@ export default class StatesNode<SN extends GameNode = GameNode> extends GameNode
         this.currentStateNode?.show();
     }
 
+    public existsState(state: string) {
+        return this.states[state] !== undefined;
+    }
+
     public set state(state: string) {
         this.changeState(state);
     }

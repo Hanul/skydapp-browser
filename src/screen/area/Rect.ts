@@ -1,4 +1,4 @@
-import CollisionChecker from "../../utils/CollisionChecker";
+import CollisionChecker from "../utils/CollisionChecker";
 import Area from "./Area";
 
 export default class Rect extends Area {
@@ -9,6 +9,7 @@ export default class Rect extends Area {
 
     public getPixiGraphics(color: number) {
         const graphics = super.getPixiGraphics(color);
+        //TODO:
         return graphics;
     }
 

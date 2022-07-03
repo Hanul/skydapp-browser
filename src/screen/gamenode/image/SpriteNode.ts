@@ -59,9 +59,11 @@ export default class SpriteNode extends GameNode {
             this.pixiSprites[frameIndex] = pixiSprite;
         });
 
-        if (this.deleted !== true) {
-            this.fireEvent("load");
-        }
+        setTimeout(() => {
+            if (this.deleted !== true) {
+                this.fireEvent("load");
+            }
+        });
     }
 
     public set src(src: string) {
